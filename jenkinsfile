@@ -1,0 +1,16 @@
+node{
+    stage ('Checkout SCM'){
+        checkout([$class: 'GitSCM', branches: [[name: '*/master']], browser: [$class: 'GithubWeb', repoUrl: 'git@github.com:giobt/itzgio-jenkins.git'], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'd4e542b6-2d44-41e3-909f-e5151533e51b', url: 'https://github.com/giobt/itzgio-jenkins']]])
+    }
+
+    stage('Build image') {
+        sh "sudo docker build -t myjenk:v6 myjenkins/ "
+    }
+
+    stage('Push image') {
+        docker.withRegistry('https://registry.hub.docker.com', '6cceee16-9872-4a24-8847-39fb0f54e1f3') {
+            sh "sudo docker tag myjenk:v6 gabalconi/dockerjenkins:v$BUILD_NUMBER"
+            sh "sudo docker push gabalconi/dockerjenkins:v${env.BUILD_NUMBER}"
+        }
+    }
+}
