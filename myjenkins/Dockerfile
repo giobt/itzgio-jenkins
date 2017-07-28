@@ -9,7 +9,7 @@ RUN apt-get update \
       software-properties-common \
       python-pip \
       && rm -rf /var/lib/apt/lists/*
-RUN pip install -y --upgrade --user awscli
+RUN pip install --upgrade --user awscli
 
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
