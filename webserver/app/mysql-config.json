@@ -1,0 +1,7 @@
+{
+    "db_host" : "mysqldb",
+    "db_username" : "giorgio",
+    "db_password" : "Contra1234.",
+    "db_name" : "itzgiodb",
+    "db_port" : 3306
+}

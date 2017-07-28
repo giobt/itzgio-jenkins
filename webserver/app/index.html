@@ -1,0 +1,75 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <title>Docker compose!</title>
+    </head>
+    <body>
+        <p>
+            <h1>Hello Itzdata world from Docker Compose!</h1>
+            <br>
+            This application was automatically created from a docker-compose file<br>
+            that initializes three containers:<br>
+            <ul>
+                <li>
+                    webserver: ubuntu with nginx, nodejs and npm installed. It retrieves records<br>
+                    from a mysql and a postgres databases.
+                </li>
+                <li>
+                    mysqldb: ubuntu image with mysql installed and a startup script.
+                </li>
+                <li>
+                    postgresdb: ubuntu image with postgres installed and a startup script.
+                </li>
+            </ul>
+            <br>
+            Show content from MySQL database:<br>
+            <button id="mysqlButton">mysqlButton</button>
+            <div id="mysqlContent"></div>
+                <table id="myTable" class="table table-condensed">
+                    <tr>
+                        <td>ID</td>
+                        <td>Value</td>
+                    </tr>
+                </table>
+            <br>
+            Show content from Postgres database:<br>
+            <button id="postgresButton">postgresButton</button>
+            <div id="postgresContent">
+                <table id="myTable2" class="table table-condensed">
+                    <tr>
+                        <td>ID</td>
+                        <td>Value</td>
+                    </tr>
+                </table>
+            </div>
+        </p>
+        <script type="text/javascript">
+            $('#mysqlButton').on('click', function(){
+                $.getJSON( "/mysql")
+                    .done(function( data ) {
+                        $.each( data, function( i, item ) {
+                            $('#myTable tr:last').after('<tr><td>' + item.ID + '</td><td>' + item.Name + '</td></tr>');
+                        });
+                    })
+                .fail(function(data) {
+                    console.log("error: " + data);
+                  });
+            });
+
+            $('#postgresButton').on('click', function(){
+                $.getJSON( "/postgres")
+                    .done(function( data ) {
+                        $.each( data, function( i, item ) {
+                            $('#myTable2 tr:last').after('<tr><td>' + item.id + '</td><td>' + item.name + '</td></tr>');
+                        });
+                    })
+                .fail(function(data) {
+                    console.log("error: " + data);
+                  });
+            });
+        </script>
+    </body>
+</html>
