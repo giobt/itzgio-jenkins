@@ -7,7 +7,10 @@ RUN apt-get update \
       curl \
       gnupg2 \
       software-properties-common \
+      python-pip \
       && rm -rf /var/lib/apt/lists/*
+RUN pip install -y --upgrade --user awscli
+
 RUN echo "jenkins ALL=NOPASSWD: ALL" >> /etc/sudoers
 
 RUN curl -fsSL https://download.docker.com/linux/debian/gpg | apt-key add -
