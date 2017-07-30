@@ -11,11 +11,10 @@
       ],
       "essential": true,
       "name": "simple-app",
-      "workingDirectory": "/src",
       "image": "gabalconi/itznode:latest",
       "command": [
         "nodemon",
-        "/src/server.js"
+        "server.js"
       ],
       "cpu": 10
     }
