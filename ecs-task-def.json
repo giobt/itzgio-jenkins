@@ -1,0 +1,24 @@
+{
+  "containerDefinitions": [
+    {
+      "memory": 300,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 8080,
+          "protocol": "tcp"
+        }
+      ],
+      "essential": true,
+      "name": "simple-app",
+      "workingDirectory": "/src",
+      "image": "gabalconi/itznode:latest",
+      "command": [
+        "nodemon",
+        "/src/server.js"
+      ],
+      "cpu": 10
+    }
+  ],
+  "family": "node-webapp"
+}

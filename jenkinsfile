@@ -4,13 +4,15 @@ node{
     }
 
     stage('Build image') {
-        sh "sudo docker build -t myjenk:v6 myjenkins/ "
+        sh "sudo docker build -t webserver:v1 webserver/ "
     }
 
     stage('Push image') {
         docker.withRegistry('https://registry.hub.docker.com', '6cceee16-9872-4a24-8847-39fb0f54e1f3') {
-            sh "sudo docker tag myjenk:v6 gabalconi/dockerjenkins:v$BUILD_NUMBER"
-            sh "sudo docker push gabalconi/dockerjenkins:v${env.BUILD_NUMBER}"
+            sh "sudo docker tag webserver:v1 gabalconi/itznode:v$BUILD_NUMBER"
+            sh "sudo docker tag webserver:v1 gabalconi/itznode:latest"
+            sh "sudo docker push gabalconi/itznode:v${env.BUILD_NUMBER}"
+            sh "sudo docker push gabalconi/itznode:latest"
         }
     }
 }
